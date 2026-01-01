@@ -15,7 +15,7 @@ From: ubuntu:24.04
     export PATH=$PATH:/scif/apps/ecoevolity/bin
 
 %appinstall ecoevolity
-    git clone https://github.com/phyletica/ecoevolity.git /ecoevolity
+    git clone https://github.com/phyletica/ecoevolity-gh-actions-testing.git /ecoevolity
     cd /ecoevolity
     git checkout {{ version }}
     ./build.sh --threads --prefix ${SCIF_APPROOT} --build-type relwithdebinfo
