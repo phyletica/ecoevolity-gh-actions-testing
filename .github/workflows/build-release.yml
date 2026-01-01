@@ -25,7 +25,7 @@ jobs:
     - name: Create singularity image
       id: create_image
       run: |
-        PACKAGE=ecoevolity-${{ steps.get_version.outputs.version }}-linux64-intel-singularity.simg
+        PACKAGE=ecoevolity-${{ steps.get_version.outputs.version }}-linux64-intel-singularity.sif
         singularity build --fakeroot --build-arg version=${{ steps.get_version.outputs.version }} ~/${PACKAGE} Singularity
         echo "archive_name=${PACKAGE}" >> $GITHUB_OUTPUT
         echo "archive_path=${HOME}/${PACKAGE}" >> $GITHUB_OUTPUT
@@ -44,26 +44,26 @@ jobs:
     strategy:
       matrix:
         name: [
-               ubuntu-gcc-14-24.04,
-               ubuntu-gcc-14-arm,
+               ubuntu-22.04-amd64-gcc-12,
+               ubuntu-22.04-arm64-gcc-12,
                macos-xcode-16-intel,
                macos-xcode-26-arm,
                ]
 
         include:
-          - name: ubuntu-gcc-14-24.04
-            os: ubuntu-24.04
+          - name: ubuntu-22.04-amd64-gcc-12
+            os: ubuntu-22.04
             compiler: gcc
-            version: "14"
+            version: "12"
             buildtype: "relwithdebinfo"
-            arch: "linux64"
+            arch: "linux-amd64"
 
-          - name: ubuntu-gcc-14-arm
-            os: ubuntu-24.04-arm
+          - name: ubuntu-22.04-arm64-gcc-12
+            os: ubuntu-22.04-arm
             compiler: gcc
-            version: "14"
+            version: "12"
             buildtype: "relwithdebinfo"
-            arch: "linux64"
+            arch: "linux-arm64"
 
           - name: macos-xcode-16-intel
             os: macos-15-intel
@@ -190,7 +190,7 @@ jobs:
       if: always()
       with:
         name: test-output-log-${{ matrix.name }}
-        path: test-output.log
+        path: test-output-${{ matrix.name }}.log
         retention-days: 7
 
     - name: Create tarball
@@ -199,9 +199,6 @@ jobs:
         PREFIX=${HOME}/local
         PACKAGE=ecoevolity-${{ steps.get_version.outputs.version }}
         ARCH=${{ matrix.arch }}
-        if [ "$ARCH" = "linux64" ]; then
-            ARCH=${{ matrix.os }}
-        fi
         TAR=${PACKAGE}-${ARCH}.tar.gz
         cp -a $PREFIX $PACKAGE
         tar -zcf $TAR ${PACKAGE}
