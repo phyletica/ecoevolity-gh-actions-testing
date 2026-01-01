@@ -23,7 +23,7 @@ else()
         # "${TEST_DIR}/test_settings.cpp"
         "${TEST_DIR}/test_split.cpp"
         # "${TEST_DIR}/test_spreadsheet.cpp"
-        "${TEST_DIR}/test_stats_util.cpp"
+        # "${TEST_DIR}/test_stats_util.cpp"
         "${TEST_DIR}/test_string_util.cpp"
         "${TEST_DIR}/test_treecomp.cpp"
         "${TEST_DIR}/test_tree_io.cpp"

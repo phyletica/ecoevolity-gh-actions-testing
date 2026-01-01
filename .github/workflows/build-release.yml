@@ -166,7 +166,7 @@ jobs:
            codesign --sign - --force --timestamp=none ${exe}
         done
 
-    - name: Test
+    - name: Run tests and generate log
       env:
         OSX_VERSION_MIN: "11.0"
       run: |
@@ -181,17 +181,17 @@ jobs:
         ccache -p
         ccache -s
 
-        ./run-test-suite.sh 1>test.log 2>&1
+        ./run-test-suite.sh 1>test-output.log 2>&1
 
         ccache -s
 
-    - name: Upload test log if tests failed
+    - name: Upload test log as artifact
       uses: actions/upload-artifact@v4
-      if: failure()
+      if: always()
       with:
-        name: tests-log-${{ matrix.name }}
-        path: test.log
-
+        name: test-output-log-${{ matrix.name }}
+        path: test-output.log
+        retention-days: 7
 
     - name: Create tarball
       id: create_tarball
