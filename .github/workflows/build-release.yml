@@ -181,7 +181,7 @@ jobs:
         ccache -p
         ccache -s
 
-        ./run-test-suite.sh 1>test-output.log 2>&1
+        ./run-test-suite.sh 1>test-output-${{ matrix.name }}.log 2>&1
 
         ccache -s
 
