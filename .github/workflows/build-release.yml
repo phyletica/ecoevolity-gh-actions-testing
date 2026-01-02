@@ -91,12 +91,8 @@ jobs:
     - name: Install Linux dependencies
       if: runner.os == 'Linux'
       run: |
-        # if [ -n "${{ matrix.image }}" ]  ; then
-        #   apt-get update && apt-get install -y sudo build-essential git cmake
-        # fi
-
-        # sudo apt-get update
-        sudo apt-get update && apt-get install -y sudo build-essential git cmake
+        sudo apt-get update
+        sudo apt-get install -y sudo build-essential git cmake
         sudo apt-get install -y ccache
         if [ "${{ matrix.compiler }}" = "gcc" ]
         then
