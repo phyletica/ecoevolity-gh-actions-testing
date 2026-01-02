@@ -153,8 +153,8 @@ jobs:
         fi
 
         echo "Build command:"
-        echo "  ./build.sh $static_arg --threads --prefix $home/local --build-type relwithdebinfo"
-        ./build.sh $static_arg --threads --prefix $home/local --build-type relwithdebinfo
+        echo "  ./build.sh $static_arg --threads --prefix $HOME/local --build-type relwithdebinfo"
+        ./build.sh $static_arg --threads --prefix $HOME/local --build-type relwithdebinfo
 
         ccache -s
 
