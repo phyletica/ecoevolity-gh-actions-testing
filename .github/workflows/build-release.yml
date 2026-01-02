@@ -147,7 +147,7 @@ jobs:
         ccache -p
         ccache -s
 
-        ./build.sh --threads --prefix $HOME/local --build-type relwithdebinfo
+        ./build.sh --static --threads --prefix $HOME/local --build-type relwithdebinfo
 
         ccache -s
 
